@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  // const [myObject, setMyObject] = useState({
+  //   key1: 'cuongpq',
+  //   key2: 'hoqnq',
+  //   key3: 'like',
+  // });
+
+  // const changeObject = () => {
+  // setMyObject(prevObj => {
+  //   return {
+  //     ...prevObj,
+  //     key3: 'love',
+  //   };
+  // });
+  // };
+
+  const [list, setList] = useState([]);
+  const [item, setItem] = useState('');
+  const addToList = () => {
+    list.push(item);
+    setList([...list]);
+  };
+  const removeItem = index => {
+    list.splice(index, 1);
+    setList([...list]);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      {/* <h1> {myObject.key1 + ' ' + myObject.key3 + ' ' + myObject.key2}</h1> */}
+      <table>
+        <tbody>
+          {list.length !== 0 ? (
+            list.map((element, index) => {
+              return (
+                <tr>
+                  {element}
+                  <button onClick={() => removeItem(index)}>Remove</button>
+                </tr>
+              );
+            })
+          ) : (
+            <tr></tr>
+          )}
+        </tbody>
+      </table>
+      <input
+        onChange={e => setItem(e.target.value)}
+        type="text"
+        placeholder="item"
+      />
+      <button onClick={addToList}>Add</button>
+    </div>
+  );
+};
 
-export default App
+export default App;
